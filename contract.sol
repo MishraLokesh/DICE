@@ -35,7 +35,7 @@ contract Dice{
 		return bets[msg.sender].matchFound;
 	}
 
-	function getNewbet(uint a) public {
+	function getNewbet(uint8 a) public {
 		require(bets[msg.sender].isBetSet == false);
 		bets[msg.sender].isBetSet = true;
 		bets[msg.sender].currentBet = a;

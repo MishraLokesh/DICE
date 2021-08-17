@@ -35,7 +35,7 @@ contract Dice{
 		return bets[msg.sender].matchFound;
 	}
 
-	function getNewbet(uint8 a) public {
+	function getNewbet(uint a) public {
 		require(bets[msg.sender].isBetSet == false);
 		bets[msg.sender].isBetSet = true;
 		bets[msg.sender].currentBet = a;
@@ -49,7 +49,7 @@ contract Dice{
         bets[msg.sender].destiny = (uint8(keccak256(abi.encodePacked(block.difficulty, now, bets[msg.sender].count))) % 5) + 1;
     
 		if(bets[msg.sender].destiny == bets[msg.sender].currentBet){
-// 			msg.sender.transfer(100000000000000);
+			msg.sender.transfer(100000000000000);
 			bets[msg.sender].matchFound = true;
 		}
 		if(bets[msg.sender].count == 3)
@@ -59,6 +59,7 @@ contract Dice{
 	
 	function reset() public{
 	    bets[msg.sender].count = 0;
+		bets[msg.sender].isBetSet = false;
 	}
 
 }

@@ -6,9 +6,11 @@ contract Dice{
 		uint8  currentBet;
 		bool  isBetSet; //default value is false	
 		uint8  destiny;
+        bool matchFound;
+        uint count;
 	}
 
-	mapping(address => Bet) public bets;
+	mapping(address => Bet) private bets;
 
 	uint8 private randomFactor;
 
@@ -29,31 +31,36 @@ contract Dice{
 	function currentBet() public view returns(uint){
 		return bets[msg.sender].currentBet;
 	}
+	function wonORnot() public view returns(bool){
+		return bets[msg.sender].matchFound;
+	}
 
 	function getNewbet(uint8 a) public {
 		require(bets[msg.sender].isBetSet == false);
 		bets[msg.sender].isBetSet = true;
 		bets[msg.sender].currentBet = a;
+		
 	}
 
-	function roll() public {
+	function roll() public payable{
+		bets[msg.sender].count++;
+        require(bets[msg.sender].isBetSet == true);
 
-		require(bets[msg.sender].isBetSet == true);
-
-        bets[msg.sender].destiny = (uint8(keccak256(abi.encodePacked(block.difficulty, now))) % 5) + 1;
-// 		bets[msg.sender].isBetSet = false;
-// 		if(bets[msg.sender].destiny == bets[msg.sender].currentBet){
+        bets[msg.sender].destiny = (uint8(keccak256(abi.encodePacked(block.difficulty, now, bets[msg.sender].count))) % 5) + 1;
+    
+		if(bets[msg.sender].destiny == bets[msg.sender].currentBet){
 // 			msg.sender.transfer(100000000000000);
-// 			emit GameResult(msg.sender, bets[msg.sender].currentBet, bets[msg.sender].destiny);			
-// 		}else{
-// 			emit GameResult(msg.sender, bets[msg.sender].currentBet, bets[msg.sender].destiny);
-// 		}
-// 		return (msg.sender , betsil[msg.sender].currentBet , bets[msg.sender].destiny);
-        // return bets[msg.sender].destiny;
+			bets[msg.sender].matchFound = true;
+		}
+		if(bets[msg.sender].count == 3)
+		    bets[msg.sender].isBetSet = false;
+		
 	}
-
-
-    // function() public payable{}
 	
+	function reset() public{
+	    bets[msg.sender].count = 0;
+	}
 
 }
+
+

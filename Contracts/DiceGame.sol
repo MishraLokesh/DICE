@@ -12,12 +12,6 @@ contract Dice{
 
 	mapping(address => Bet) private bets;
 
-	uint8 private randomFactor;
-
-	event NewBetIsSet(address bidder , uint8 currentBet);
-
-	event GameResult(address bidder, uint8 currentBet , uint8 destiny);
-
 
 	function isBetSet() public view returns(bool){
 		return bets[msg.sender].isBetSet;

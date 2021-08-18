@@ -29,7 +29,7 @@ https://faucet.rinkeby.io/
 4. Add your personal 12-word mnemonic and Infura API
 
 ```
-Goto Health_Hub/ethereum/deploy.js
+Goto deploy.js
 ```
 ```bash
 #In the deploy.js file (lines 11-18) make the following changes to the file -->

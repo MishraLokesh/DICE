@@ -22,7 +22,7 @@ contract Dice{
 	function currentBet() public view returns(uint){
 		return bets[msg.sender].currentBet;
 	}
-	function wonORnot() public view returns(bool){
+	function WONorNOT() public view returns(bool){
 		return bets[msg.sender].matchFound;
 	}
 	function getNewbet(uint8 a) public {

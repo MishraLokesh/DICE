@@ -5,13 +5,13 @@ const solc = require('solc');
 const buildPath = path.resolve(__dirname, 'build');
 fs.removeSync(buildPath);
 
-const Contractpath = path.resolve(__dirname, 'contracts', 'HealthHub.sol');
+const Contractpath = path.resolve(__dirname, 'contracts', 'DiceGame.sol');
 const source = fs.readFileSync(Contractpath, 'UTF-8');
 
 var input = {
   language: 'Solidity',
   sources: {
-      'HealthHub.sol' : {
+      'DiceGame.sol' : {
           content: source
       }
   },
